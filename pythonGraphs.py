@@ -1,5 +1,3 @@
-import copy
-
 class graph:
 
     """
@@ -13,8 +11,8 @@ class graph:
     """
 
     def __init__(self, V=[], E=[]):
-        self.V = V
-        self.E = E
+        self.V = V.copy()
+        self.E = E.copy()
    
     def get_edges(self):
         return self.E
@@ -41,14 +39,15 @@ def r_max(L, v_ini):
     
     """ Takes a graph L and and a vertex v and returns a maximal trial starting at v """  
     
-    sub_walk = [v_ini]
-    
+    M = graph(L.get_vertices(), L.get_edges())
+
+    sub_walk = [v_ini]    
     p0 = v_ini
 
-    while len(L.get_adj(p0)) > 0:
-        p1 = L.get_adj(p0)[0] 
+    while len(M.get_adj(p0)) > 0:
+        p1 = M.get_adj(p0)[0] 
         sub_walk.append(p1)
-        L.rem_edge([p0, p1])
+        M.rem_edge([p0, p1])
         p0=p1
 
     return sub_walk 
@@ -59,7 +58,7 @@ def euler_walk(L, v_ini):
     """ Takes a graph L and a vertex v and returns an eulerian walk given some assumptions """
 
     temp_walk = r_max(L, v_ini)
-    free = copy.copy(L)
+    free = graph(L.get_vertices(), L.get_edges())
 
     for i in range(len(temp_walk)-1):
         free.rem_edge([temp_walk[i], temp_walk[i+1]])
