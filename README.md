@@ -1,0 +1,1 @@
+An implementation of Hierholzer's algorithm for finding an eulerian path on a particular kind of graph. I had to fiind one for my discrete math class and of course I'd rather spend an hour writing/debugging this instead of doing it by hand in 5m.
